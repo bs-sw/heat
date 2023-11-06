@@ -7,8 +7,7 @@ const float level3Divider = 60000/baseClock;            //1 Minute
 const float level4Divider = 600000/baseClock;           //10 Minuten
 
 unsigned long cycleCounter;
-unsigned long lastCycle;
-bool firstRun = true;
+unsigned long lastTime;
 
 void setup()
 {
@@ -34,19 +33,17 @@ void setup()
 }
 
 void loop() { 
-  cycleCounter = (millis()) / baseClock;
-  if (cycleCounter != lastCycle) {
+  if (millis() - lastTime > baseClock) {
+    //Watchdog
+    if (millis() - lastTime > 2 * baseClock) {
+      Error::setError(ERROR_WATCHDOG_CYCLE_TIME, cycleCounter);
+    }
+
+    lastTime += baseClock;
+    cycleCounter++;
     #if defined(NO_PERIPHERY) 
     Serial.println(cycleCounter); 
     #endif
-    
-    //Watchdog
-    if (cycleCounter != (lastCycle + 1) % 21474837) {
-      if (!firstRun) {
-        Error::setError(ERROR_WATCHDOG_CYCLE_TIME, cycleCounter);
-        Error::setError(ERROR_WATCHDOG_CYCLE_TIME, lastCycle);
-      } else firstRun = false;
-    } 
     
     //Level0 - alle 200ms
     Controller::output();
@@ -106,6 +103,5 @@ void loop() {
       Serial.println("Level4"); 
       #endif
     }
-    lastCycle = cycleCounter;
   }
 }
