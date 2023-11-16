@@ -4,7 +4,7 @@ Heating flow control with heating curve and lowering at night.
 I have been using it for several years. After some initial bugs, no more problems.
 
 Required components:
- - 3 x DS18B20 (flow, return, inlet)
+ - 4 x DS18B20 (outside, flow, return, inlet)
  - 1 x relay card with 2 relays (open/close valve)
  - 1 x RTC DS1307
  - 1 x SD card module (logging)
