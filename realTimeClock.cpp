@@ -92,6 +92,9 @@ void RealTimeClock::refresh(){
 }
 
 bool RealTimeClock::isNight() {
+  #if defined(IS_NIGHT)
+  return false;
+  #endif
   #if defined(IS_DAY)
   return false;
   #endif

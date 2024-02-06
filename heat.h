@@ -4,6 +4,7 @@
 //#define TEMPERATURES_SIMULATED
 //#define BACKLIGHT_ON
 //#define IS_DAY
+//#define IS_NIGHT
 //#define DEBUG
 //#define NO_PERIPHERY
 //#define RECORD_STEP_RESPONSE
